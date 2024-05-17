@@ -9,6 +9,7 @@ public class FirstPersonController : MonoBehaviour
 
   [Header("Functional Options")]
   [SerializeField] private bool canSprint = true;
+  [SerializeField] private bool canUseHeadBob = true;
 
   [Header("Controls")]
   [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -24,6 +25,14 @@ public class FirstPersonController : MonoBehaviour
   [SerializeField, Range(1, 100)] private float upperLookLimit = 90.0f;
   [SerializeField, Range(1, 100)] private float lowerLookLimit = 90.0f;
 
+  [Header("Headbob Parameters")]
+  [SerializeField] private float walkBobSpeed = 14f;
+  [SerializeField] private float walkBobAmount = 0.05f;
+  [SerializeField] private float sprintBobSpeed = 18f;
+  [SerializeField] private float sprintBobAmount = 0.1f;
+  private float defaultYPos = 0;
+  private float timer;
+
   private Camera playerCamera;
   private CharacterController characterController;
 
@@ -36,6 +45,7 @@ public class FirstPersonController : MonoBehaviour
   {
     playerCamera = GetComponentInChildren<Camera>();
     characterController = GetComponent<CharacterController>();
+    defaultYPos = playerCamera.transform.localPosition.y;
     Cursor.lockState = CursorLockMode.Locked;
     Cursor.visible = false;
   }
@@ -47,7 +57,10 @@ public class FirstPersonController : MonoBehaviour
       HandleMovementInput();
       HandleMouseLook();
 
-      ApplyFinalMovements();
+      if (canUseHeadBob)
+        HandleHeadBob();
+
+      ApplyFinalMovements(); 
     }
   }
 
@@ -66,6 +79,20 @@ public class FirstPersonController : MonoBehaviour
     rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
     playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
     transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeedX, 0);
+  }
+
+  private void HandleHeadBob()
+  {
+    if(!characterController.isGrounded) return;
+
+    if(Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) >0.1f)
+    {
+      timer += Time.deltaTime * (IsSprinting ? sprintBobSpeed : walkBobSpeed);
+      playerCamera.transform.localPosition = new Vector3(
+        playerCamera.transform.localPosition.x,
+        defaultYPos + Mathf.Sin(timer) * (IsSprinting ? sprintBobAmount : walkBobAmount),
+        playerCamera.transform.localPosition.z);
+    }
   }
 
   private void ApplyFinalMovements()
