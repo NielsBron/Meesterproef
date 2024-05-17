@@ -389,7 +389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051828076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8568087, y: -2.11, z: -0.09791446}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -425,12 +425,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb7229da0f2e9844b4a17d2c5051467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSprint: 1
+  canUseHeadBob: 1
+  sprintKey: 304
   walkSpeed: 3
+  sprintSpeed: 6
   gravity: 30
   lookSpeedX: 2
   lookSpeedY: 2
-  upperLookLimit: 80
-  lowerLookLimit: 80
+  upperLookLimit: 90
+  lowerLookLimit: 90
+  walkBobSpeed: 14
+  walkBobAmount: 0.05
+  sprintBobSpeed: 18
+  sprintBobAmount: 0.1
 --- !u!143 &1090768743
 CharacterController:
   m_ObjectHideFlags: 0
