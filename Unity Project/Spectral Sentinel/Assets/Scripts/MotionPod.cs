@@ -45,7 +45,7 @@ public class MotionPod : MonoBehaviour
     if (playerObj != null && isOn == true)
     {
       float distance = Vector3.Distance(transform.position, playerObj.transform.position);
-      Debug.Log("Distance to player: " + distance);
+      // Debug.Log("Distance to player: " + distance);
 
       if (distance <= 0.4f)
       {
