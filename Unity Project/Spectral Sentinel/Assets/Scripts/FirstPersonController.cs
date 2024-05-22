@@ -11,6 +11,7 @@ public class FirstPersonController : MonoBehaviour
   [SerializeField] private bool canSprint = true;
   [SerializeField] private bool canUseHeadBob = true;
   [SerializeField] private bool canInteract = true;
+  [SerializeField] private bool useFootsteps = true;
 
   [Header("Controls")]
   [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -32,6 +33,16 @@ public class FirstPersonController : MonoBehaviour
   [SerializeField] private float walkBobAmount = 0.05f;
   [SerializeField] private float sprintBobSpeed = 18f;
   [SerializeField] private float sprintBobAmount = 0.1f;
+
+  [Header("Footstep Parameters")]
+  [SerializeField] private float baseStepSpeed = 0.5f;
+  [SerializeField] private float sprintStepMultiplier = 0.6f;
+  [SerializeField] private AudioSource footstepAudioSource = default;
+  [SerializeField] private AudioClip[] woodClips = default;
+  [SerializeField] private AudioClip[] concreteClips = default;
+  [SerializeField] private AudioClip[] carpetClips = default;
+  private float footstepTimer = 0;
+  private float GetCurrentOffset => IsSprinting ? baseStepSpeed * sprintStepMultiplier : baseStepSpeed;
 
   [Header("Interaction")]
   [SerializeField] private Vector3 InteractionRayPoint = default;
@@ -68,6 +79,9 @@ public class FirstPersonController : MonoBehaviour
 
       if (canUseHeadBob)
         HandleHeadBob();
+
+      if (useFootsteps)
+        Handle_Footsteps();
 
       if (canInteract)
       {
@@ -138,6 +152,38 @@ public class FirstPersonController : MonoBehaviour
     if(Input.GetKeyDown(interactKey) && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(InteractionRayPoint), out RaycastHit hit, interactionDistance, InteractionLayer))
     {
       currentInteractable.OnInteract();
+    }
+  }
+
+  private void Handle_Footsteps()
+  {
+    if(!characterController.isGrounded) return;
+    if(currentInput == Vector2.zero) return;
+
+    footstepTimer -= Time.deltaTime;
+
+    if(footstepTimer <= 0)
+    {
+      if(Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 3))
+      {
+        switch(hit.collider.tag)
+        {
+          case "Footsteps/CARPET":
+            footstepAudioSource.PlayOneShot(carpetClips[Random.Range(0, carpetClips.Length- 1)]);
+            break;
+          case "Footsteps/WOOD":
+            footstepAudioSource.PlayOneShot(woodClips[Random.Range(0, woodClips.Length- 1)]);
+            break;
+          case "Footsteps/CONCRETE":
+            footstepAudioSource.PlayOneShot(concreteClips[Random.Range(0, concreteClips.Length- 1)]);
+            break;
+          default:
+            footstepAudioSource.PlayOneShot(carpetClips[Random.Range(0, carpetClips.Length- 1)]);
+            break;
+        }
+      }
+
+      footstepTimer = GetCurrentOffset;
     }
   }
 

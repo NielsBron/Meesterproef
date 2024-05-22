@@ -1563,6 +1563,7 @@ GameObject:
   - component: {fileID: 1090768744}
   - component: {fileID: 1090768743}
   - component: {fileID: 1090768742}
+  - component: {fileID: 1090768745}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Untagged
@@ -1585,6 +1586,7 @@ MonoBehaviour:
   canSprint: 1
   canUseHeadBob: 1
   canInteract: 1
+  useFootsteps: 1
   sprintKey: 304
   interactKey: 101
   walkSpeed: 2
@@ -1598,6 +1600,40 @@ MonoBehaviour:
   walkBobAmount: 0.04
   sprintBobSpeed: 18
   sprintBobAmount: 0.08
+  baseStepSpeed: 0.5
+  sprintStepMultiplier: 0.6
+  footstepAudioSource: {fileID: 1090768745}
+  woodClips:
+  - {fileID: 8300000, guid: 3a8288c6304823c43b23ed46fbb345ff, type: 3}
+  - {fileID: 8300000, guid: 3dc013770d8b60c458a2e4d1418484e8, type: 3}
+  - {fileID: 8300000, guid: 99f15972bcb889147855a3917e8506b5, type: 3}
+  - {fileID: 8300000, guid: 191d0d337e3438c46a695cfeb341ccac, type: 3}
+  - {fileID: 8300000, guid: 5c72b8b1215f2fe4da624f36901d63c9, type: 3}
+  - {fileID: 8300000, guid: 5b2a41f5a8cd9f6439795a9736327576, type: 3}
+  - {fileID: 8300000, guid: 6d9c17b681dcd0f4386a251a14fc6f51, type: 3}
+  - {fileID: 8300000, guid: 079d9feee88db2f48b87e35b2fe38587, type: 3}
+  - {fileID: 8300000, guid: 2eacb398251f5064888267210d00c961, type: 3}
+  - {fileID: 8300000, guid: da05fbe9c842c89449a5c932f29224fb, type: 3}
+  concreteClips:
+  - {fileID: 8300000, guid: b3ae0a1d691d4c74fa824c79e1183bad, type: 3}
+  - {fileID: 8300000, guid: bcfc0ab26de15e74bba20b97ea1c929a, type: 3}
+  - {fileID: 8300000, guid: 2233e842559e29148b39235c68794462, type: 3}
+  - {fileID: 8300000, guid: 07900343bb6808148a8402149b0fbce5, type: 3}
+  - {fileID: 8300000, guid: 78e9474546d6b5e41a7c7237caaf3f26, type: 3}
+  - {fileID: 8300000, guid: 13108035425407e45ba8a88980c4439d, type: 3}
+  - {fileID: 8300000, guid: 2c09ade135430b74b9f48af84fba943b, type: 3}
+  - {fileID: 8300000, guid: 5ee713bcd2355d245877583acb37965e, type: 3}
+  - {fileID: 8300000, guid: 74ab4350a2b19014c96b1528237b959a, type: 3}
+  - {fileID: 8300000, guid: a448b5a88497b374291dfbdfd8e9a655, type: 3}
+  carpetClips:
+  - {fileID: 8300000, guid: df34513d252eda64ab14f0fcaad1f538, type: 3}
+  - {fileID: 8300000, guid: d81e740565838a0419df2ada0d3c27eb, type: 3}
+  - {fileID: 8300000, guid: 0996a6e039a95414da570601c959ee6f, type: 3}
+  - {fileID: 8300000, guid: 4dbfc477122fa2044a68fe8395cbecf9, type: 3}
+  - {fileID: 8300000, guid: 064a0fec3167ba44181888dd8284489c, type: 3}
+  - {fileID: 8300000, guid: efd0fe246a565e24db4c59bdddad5a06, type: 3}
+  - {fileID: 8300000, guid: 0fe882bb3535a6543afafbc4b797a905, type: 3}
+  - {fileID: 8300000, guid: b2547fe423c4f11448f432cf4b5d023d, type: 3}
   InteractionRayPoint: {x: 0.5, y: 0.5, z: 0}
   interactionDistance: 2
   InteractionLayer:
@@ -1637,6 +1673,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1090768745
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090768741}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
+  m_Pitch: 0.9
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1133668977
 GameObject:
   m_ObjectHideFlags: 0
@@ -4064,7 +4196,7 @@ GameObject:
   - component: {fileID: 613980880364669242}
   m_Layer: 0
   m_Name: Floor_Living Room
-  m_TagString: Untagged
+  m_TagString: Footsteps/CARPET
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5411,7 +5543,7 @@ GameObject:
   - component: {fileID: 2698558021938243655}
   m_Layer: 0
   m_Name: Threshold_Closet
-  m_TagString: Untagged
+  m_TagString: Footsteps/WOOD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5503,7 +5635,7 @@ GameObject:
   - component: {fileID: 2902197237647194067}
   m_Layer: 0
   m_Name: Floor_Hall
-  m_TagString: Untagged
+  m_TagString: Footsteps/WOOD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5584,7 +5716,7 @@ GameObject:
   - component: {fileID: 2947950578448911341}
   m_Layer: 0
   m_Name: Floor_Garage
-  m_TagString: Untagged
+  m_TagString: Footsteps/CONCRETE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6187,7 +6319,7 @@ GameObject:
   - component: {fileID: 3718050168412326831}
   m_Layer: 0
   m_Name: Floor_Office
-  m_TagString: Untagged
+  m_TagString: Footsteps/WOOD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6304,7 +6436,7 @@ GameObject:
   - component: {fileID: 3960855528512430607}
   m_Layer: 0
   m_Name: Floor_Closet
-  m_TagString: Untagged
+  m_TagString: Footsteps/CARPET
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6612,7 +6744,7 @@ GameObject:
   - component: {fileID: 4476539494022098374}
   m_Layer: 0
   m_Name: Threshold_Kitchen
-  m_TagString: Untagged
+  m_TagString: Footsteps/WOOD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6901,7 +7033,7 @@ GameObject:
   - component: {fileID: 5014578969287459267}
   m_Layer: 0
   m_Name: Floor_Kitchen
-  m_TagString: Untagged
+  m_TagString: Footsteps/CONCRETE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7201,7 +7333,7 @@ GameObject:
   - component: {fileID: 5456891715992785230}
   m_Layer: 0
   m_Name: Floor_Bathroom
-  m_TagString: Untagged
+  m_TagString: Footsteps/CONCRETE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7330,7 +7462,7 @@ GameObject:
   - component: {fileID: 5544285095612837185}
   m_Layer: 0
   m_Name: Threshold_Garage
-  m_TagString: Untagged
+  m_TagString: Footsteps/WOOD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7441,7 +7573,7 @@ GameObject:
   - component: {fileID: 5704366806673742932}
   m_Layer: 0
   m_Name: Threshold_Bathroom
-  m_TagString: Untagged
+  m_TagString: Footsteps/WOOD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7736,7 +7868,7 @@ GameObject:
   - component: {fileID: 6032791062903952555}
   m_Layer: 0
   m_Name: Floor_Stairs
-  m_TagString: Untagged
+  m_TagString: Footsteps/CARPET
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8628,7 +8760,7 @@ GameObject:
   - component: {fileID: 7107813770839526405}
   m_Layer: 0
   m_Name: Threshold_Office
-  m_TagString: Untagged
+  m_TagString: Footsteps/WOOD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10039,7 +10171,7 @@ GameObject:
   - component: {fileID: 8989339313029135568}
   m_Layer: 0
   m_Name: Threshold_Living_Room
-  m_TagString: Untagged
+  m_TagString: Footsteps/WOOD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
