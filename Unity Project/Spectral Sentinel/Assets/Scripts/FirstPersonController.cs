@@ -164,6 +164,7 @@ public class FirstPersonController : MonoBehaviour
 
     if(footstepTimer <= 0)
     {
+      footstepAudioSource.pitch = Random.Range(0.9f, 1.1f);
       if(Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 3))
       {
         switch(hit.collider.tag)
