@@ -21,7 +21,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.69
+    value: 0.2
   color:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
@@ -143,19 +143,19 @@ MonoBehaviour:
     value: 5
   mixerRedOutRedIn:
     overrideState: 0
-    value: 100
+    value: -200
   mixerRedOutGreenIn:
     overrideState: 0
-    value: 0
+    value: 200
   mixerRedOutBlueIn:
     overrideState: 0
-    value: 0
+    value: -200
   mixerGreenOutRedIn:
     overrideState: 0
     value: 0
   mixerGreenOutGreenIn:
     overrideState: 0
-    value: 100
+    value: 0
   mixerGreenOutBlueIn:
     overrideState: 0
     value: 0
