@@ -63,7 +63,7 @@ public class MotionPod : MonoBehaviour
         if (playerObj != null && isOn == true)
         {
             float distance = Vector3.Distance(transform.position, playerObj.transform.position);
-            Debug.Log("Distance to player: " + distance);
+            // Debug.Log("Distance to player: " + distance);
 
             if (distance <= PurpleDistance)
             {
@@ -94,7 +94,7 @@ public class MotionPod : MonoBehaviour
         DisableAll();
         RedObject.GetComponent<MeshRenderer>().material = RedMat;
         RedLight.SetActive(true);
-        audioSource.Stop(); // Stop playing audio when turning on red light
+        audioSource.Stop();
     }
 
     public void Green()

@@ -5,9 +5,9 @@ using UnityEngine;
 public class LightSwitch : Interactable
 {
     [SerializeField] public GameObject UseText;
-    [SerializeField] public Light controlledLight;
+    [SerializeField] public List<Light> controlledLights; // List of lights to control
     [SerializeField] public Animation switchAnimation;
-    [SerializeField] public Renderer lightRenderer; // Reference to the Renderer of the light object
+    [SerializeField] public List<Renderer> lightRenderers; // List of renderers to update
     [SerializeField] public Material lightOnMaterial;
     [SerializeField] public Material lightOffMaterial;
     [SerializeField] public AudioClip turnOnSound;
@@ -45,15 +45,15 @@ public class LightSwitch : Interactable
         if (isLightOn)
         {
             switchAnimation.Play("TurnOn");
-            controlledLight.enabled = true;
-            lightRenderer.material = lightOnMaterial;
+            SetLightsState(true);
+            SetRenderersMaterial(lightOnMaterial);
             audioSource.PlayOneShot(turnOnSound);
         }
         else
         {
             switchAnimation.Play("TurnOff");
-            controlledLight.enabled = false;
-            lightRenderer.material = lightOffMaterial;
+            SetLightsState(false);
+            SetRenderersMaterial(lightOffMaterial);
             audioSource.PlayOneShot(turnOffSound);
         }
 
@@ -62,15 +62,23 @@ public class LightSwitch : Interactable
 
     private void SetInitialLightState()
     {
-        if (isLightOn)
+        SetLightsState(isLightOn);
+        SetRenderersMaterial(isLightOn ? lightOnMaterial : lightOffMaterial);
+    }
+
+    private void SetLightsState(bool state)
+    {
+        foreach (Light light in controlledLights)
         {
-            controlledLight.enabled = true;
-            lightRenderer.material = lightOnMaterial;
+            light.enabled = state;
         }
-        else
+    }
+
+    private void SetRenderersMaterial(Material material)
+    {
+        foreach (Renderer renderer in lightRenderers)
         {
-            controlledLight.enabled = false;
-            lightRenderer.material = lightOffMaterial;
+            renderer.material = material;
         }
     }
 }
