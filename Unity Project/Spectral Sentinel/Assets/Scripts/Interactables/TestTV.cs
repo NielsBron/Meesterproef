@@ -5,10 +5,10 @@ using UnityEngine.Video;
 
 public class TestTV : Interactable
 {
-    [SerializeField] public GameObject TurnOnText;
-    [SerializeField] public GameObject TurnOffText;
-    [SerializeField] public GameObject VideoScreen;
-    [SerializeField] public GameObject VideoLight;
+    [SerializeField] private GameObject TurnOnText;
+    [SerializeField] private GameObject TurnOffText;
+    [SerializeField] private GameObject VideoScreen;
+    [SerializeField] private GameObject VideoLight;
     private bool isOn = false;
     private AudioSource audioSource;
     private AudioLowPassFilter lowPassFilter;
@@ -72,12 +72,12 @@ public class TestTV : Interactable
         if (!isOn)
         {
             TurnOnText.SetActive(true);
-            print("Turn on " + gameObject.name + "?");
+            //print("Turn on " + gameObject.name + "?");
         }
         else
         {
             TurnOffText.SetActive(true);
-            print("Turn off " + gameObject.name + "?");
+            //print("Turn off " + gameObject.name + "?");
         }
     }
 

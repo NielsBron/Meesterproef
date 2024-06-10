@@ -1,18 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GarageScript : MonoBehaviour
 {
-    public void Anomaly1()
+    [SerializeField] private string RoomName = "Garage";
+    [SerializeField] private GameObject CameraMalfunction;
+    [SerializeField] private GameObject New;
+
+    private bool isCameraMalfunctionActive = false;
+    private bool isNewActive = false;
+
+    public void AnomalyCameraMalfunction()
     {
-        // Code for the first bathroom anomaly
-        Debug.Log("Garage Anomaly 1 triggered: Flickering lights");
-        // Example: Start flickering lights in the bathroom
+        if (isCameraMalfunctionActive) return;
+
+        Debug.Log(RoomName + " CameraMalfunction");
+        CameraMalfunction.SetActive(true);
+        isCameraMalfunctionActive = true;
     }
 
-    public void Anomaly2()
+    public void AnomalyNew()
     {
-        // Code for the second bathroom anomaly
-        Debug.Log("Garage Anomaly 2 triggered: Mirror reflection anomaly");
-        // Example: Change the mirror reflection in the bathroom
+        if (isNewActive) return;
+
+        Debug.Log(RoomName + " New");
+        New.SetActive(true);
+        isNewActive = true;
     }
-}
+
+    public bool IsAnomalyActive(string anomalyName)
+    {
+        if (anomalyName == nameof(AnomalyCameraMalfunction))
+            return isCameraMalfunctionActive;
+        if (anomalyName == nameof(AnomalyNew))
+            return isNewActive;
+
+        return false;
+    }
+}   

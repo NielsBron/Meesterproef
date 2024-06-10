@@ -1,10 +1,21 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Reflection;
 
 public class AnomalyGenerator : MonoBehaviour
 {
-    public MonoBehaviour[] roomScripts;
-    public float anomalyInterval = 10f;
+    [SerializeField] private MonoBehaviour[] roomScripts;
+    [SerializeField] private float realWorldGameDuration = 6f * 60f;
+    [SerializeField] private float inGameAnomalyInterval = 20f;
+    [SerializeField] private Text timeText;
+    [SerializeField] private Text anomalyCounterText;
+    [SerializeField] private GameOver gameOverScript;
+    [SerializeField] private int maxAnomalies = 1;
+    [SerializeField] private int anomalyCounter = 0;
+
+    private float realWorldAnomalyInterval;
+    private float gameStartTime;
+    private bool isAnomalyGenerationStopped = false;
 
     void Start()
     {
@@ -14,27 +25,86 @@ public class AnomalyGenerator : MonoBehaviour
             return;
         }
 
-        // Start generating anomalies every 10 seconds
-        InvokeRepeating("GenerateAnomaly", 0f, anomalyInterval);
+        realWorldAnomalyInterval = (inGameAnomalyInterval / (6f * 60f)) * realWorldGameDuration;
+        gameStartTime = Time.time;
+        InvokeRepeating("GenerateAnomaly", realWorldAnomalyInterval, realWorldAnomalyInterval);
+    }
+
+    void Update()
+    {
+        float elapsedTime = Time.time - gameStartTime;
+        float inGameElapsedTime = elapsedTime * (6f * 60f) / realWorldGameDuration;
+        int hours = Mathf.FloorToInt((inGameElapsedTime % 3600f) / 60f);
+        int minutes = Mathf.FloorToInt(inGameElapsedTime % 60f);
+        timeText.text = $"{hours:D2}:{minutes:D2}";
+
+        if (elapsedTime >= realWorldGameDuration)
+        {
+            CancelInvoke("GenerateAnomaly");
+            Debug.Log("Game over");
+        }
+
+        if (anomalyCounter >= maxAnomalies)
+        {
+            gameOverScript.GameOverFunction();
+            isAnomalyGenerationStopped = true;
+        }
     }
 
     public void GenerateAnomaly()
     {
-        int roomIndex = Random.Range(0, roomScripts.Length);
-        MonoBehaviour selectedRoomScript = roomScripts[roomIndex];
+        if (isAnomalyGenerationStopped)
+            return;
 
-        MethodInfo[] methods = selectedRoomScript.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        MethodInfo[] anomalyMethods = System.Array.FindAll(methods, m => m.Name.StartsWith("Anomaly"));
-
-        if (anomalyMethods.Length == 0)
+        if (anomalyCounter >= maxAnomalies)
         {
-            Debug.LogWarning($"No anomaly functions found in the script: {selectedRoomScript.GetType().Name}");
+            CancelInvoke("GenerateAnomaly");
             return;
         }
 
-        int anomalyIndex = Random.Range(0, anomalyMethods.Length);
-        anomalyMethods[anomalyIndex].Invoke(selectedRoomScript, null);
+        bool anomalyGenerated = false;
 
-        Debug.Log($"Anomaly generated in {selectedRoomScript.GetType().Name}: {anomalyMethods[anomalyIndex].Name}");
+        while (!anomalyGenerated)
+        {
+            int roomIndex = Random.Range(0, roomScripts.Length);
+            MonoBehaviour selectedRoomScript = roomScripts[roomIndex];
+
+            MethodInfo[] methods = selectedRoomScript.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            MethodInfo[] anomalyMethods = System.Array.FindAll(methods, m => m.Name.StartsWith("Anomaly"));
+
+            if (anomalyMethods.Length == 0)
+            {
+                Debug.LogWarning($"No anomaly functions found in the script: {selectedRoomScript.GetType().Name}");
+                continue;
+            }
+
+            foreach (var method in anomalyMethods)
+            {
+                if (!(bool)selectedRoomScript.GetType().GetMethod("IsAnomalyActive").Invoke(selectedRoomScript, new object[] { method.Name }))
+                {
+                    method.Invoke(selectedRoomScript, null);
+                    anomalyCounter++;
+                    anomalyCounterText.text = "" + anomalyCounter;
+                    anomalyGenerated = true;
+                    break;
+                }
+            }
+
+            if (!anomalyGenerated)
+            {
+                Debug.LogWarning($"No available anomaly functions found in the script: {selectedRoomScript.GetType().Name}");
+            }
+        }
+
+        if (!anomalyGenerated)
+        {
+            Debug.LogWarning("Unable to generate an anomaly after multiple attempts.");
+        }
+    }
+
+    public void DecrementAnomalyCounter()
+    {
+        anomalyCounter--;
+        anomalyCounterText.text = "" + anomalyCounter;
     }
 }

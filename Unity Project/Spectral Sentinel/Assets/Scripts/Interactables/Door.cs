@@ -27,8 +27,6 @@ public class Door : Interactable
 
             anim.SetFloat("dot", dot);
             anim.SetBool("isOpen", isOpen);
-
-            Debug.Log(dot);
         }
     }
 

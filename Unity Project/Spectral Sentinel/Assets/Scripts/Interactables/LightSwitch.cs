@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LightSwitch : Interactable
 {
-    [SerializeField] public GameObject UseText;
-    [SerializeField] public List<Light> controlledLights; // List of lights to control
-    [SerializeField] public Animation switchAnimation;
-    [SerializeField] public List<Renderer> lightRenderers; // List of renderers to update
-    [SerializeField] public Material lightOnMaterial;
-    [SerializeField] public Material lightOffMaterial;
-    [SerializeField] public AudioClip turnOnSound;
-    [SerializeField] public AudioClip turnOffSound;
-    [SerializeField] public AudioSource audioSource;
+    [SerializeField] private GameObject UseText;
+    [SerializeField] private List<Light> controlledLights;
+    [SerializeField] private Animation switchAnimation;
+    [SerializeField] private List<Renderer> lightRenderers;
+    [SerializeField] private Material lightOnMaterial;
+    [SerializeField] private Material lightOffMaterial;
+    [SerializeField] private AudioClip turnOnSound;
+    [SerializeField] private AudioClip turnOffSound;
+    [SerializeField] private AudioSource audioSource;
 
     private bool isLightOn = true;
 
@@ -29,13 +29,13 @@ public class LightSwitch : Interactable
     public override void OnFocus()
     {
         UseText.SetActive(true);
-        print("Looking at object: " + gameObject.name);
+        //print("Looking at object: " + gameObject.name);
     }
 
     public override void OnLoseFocus()
     {
         UseText.SetActive(false);
-        print("Stopped Looking at object: " + gameObject.name);
+        //print("Stopped Looking at object: " + gameObject.name);
     }
 
     private void ToggleLight()
@@ -57,7 +57,7 @@ public class LightSwitch : Interactable
             audioSource.PlayOneShot(turnOffSound);
         }
 
-        print("Interacted with object: " + gameObject.name);
+        //print("Interacted with object: " + gameObject.name);
     }
 
     private void SetInitialLightState()

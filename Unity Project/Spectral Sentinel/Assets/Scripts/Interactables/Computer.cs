@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestComputer : Interactable
+public class Computer : Interactable
 {
     [SerializeField] public GameObject UseText;
     [SerializeField] public GameObject playerController;
@@ -18,7 +18,7 @@ public class TestComputer : Interactable
 
     private void Update()
     {
-        if (isUsingComputer && Input.GetKeyDown(KeyCode.X))
+        if (isUsingComputer && Input.GetKeyDown(KeyCode.Escape))
         {
             ExitComputer();
         }
@@ -28,19 +28,16 @@ public class TestComputer : Interactable
     {
         UseText.SetActive(true);
         EnterComputer();
-        print("Interacted with object: " + gameObject.name);
     }
 
     public override void OnFocus()
     {
         UseText.SetActive(true);
-        print("Looking at object: " + gameObject.name);
     }
 
     public override void OnLoseFocus()
     {
         UseText.SetActive(false);
-        print("Stopped Looking at object: " + gameObject.name);
     }
 
     private void EnterComputer()

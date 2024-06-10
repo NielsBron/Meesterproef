@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LivingRoomScript : MonoBehaviour
+public class KitchenScript : MonoBehaviour
 {
-    [SerializeField] private string RoomName = "Living Room";
+    [SerializeField] private string RoomName = "Kitchen";
     [SerializeField] private GameObject CameraMalfunction;
     [SerializeField] private GameObject New;
 
@@ -38,4 +38,4 @@ public class LivingRoomScript : MonoBehaviour
 
         return false;
     }
-}
+}   

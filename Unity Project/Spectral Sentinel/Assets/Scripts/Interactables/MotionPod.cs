@@ -5,33 +5,33 @@ using UnityEngine;
 public class MotionPod : MonoBehaviour
 {
     [Header("Materials")]
-    [SerializeField] public Material RedMat;
-    [SerializeField] public Material GreenMat;
-    [SerializeField] public Material YellowMat;
-    [SerializeField] public Material BlueMat;
-    [SerializeField] public Material PurpleMat;
-    [SerializeField] public Material WhiteMat;
+    [SerializeField] private Material RedMat;
+    [SerializeField] private Material GreenMat;
+    [SerializeField] private Material YellowMat;
+    [SerializeField] private Material BlueMat;
+    [SerializeField] private Material PurpleMat;
+    [SerializeField] private Material WhiteMat;
 
     [Header("Lights")]
-    [SerializeField] public GameObject RedObject;
-    [SerializeField] public GameObject GreenObject;
-    [SerializeField] public GameObject YellowObject;
-    [SerializeField] public GameObject BlueObject;
-    [SerializeField] public GameObject PurpleObject;
+    [SerializeField] private GameObject RedObject;
+    [SerializeField] private GameObject GreenObject;
+    [SerializeField] private GameObject YellowObject;
+    [SerializeField] private GameObject BlueObject;
+    [SerializeField] private GameObject PurpleObject;
 
     [Header("Distance parameters")]
-    [SerializeField] public float GreenDistance = default;
-    [SerializeField] public float YellowDistance = default;
-    [SerializeField] public float BlueDistance = default;
-    [SerializeField] public float PurpleDistance = default;
+    [SerializeField] private float GreenDistance = default;
+    [SerializeField] private float YellowDistance = default;
+    [SerializeField] private float BlueDistance = default;
+    [SerializeField] private float PurpleDistance = default;
 
     [Header("Audio Clip")]
-    [SerializeField] public AudioClip clip;
+    [SerializeField] private AudioClip clip;
     [Header("Pitch Settings")]
-    [SerializeField] public float pitchGreen = 1.0f;
-    [SerializeField] public float pitchYellow = 1.1f;
-    [SerializeField] public float pitchBlue = 1.2f;
-    [SerializeField] public float pitchPurple = 1.3f;
+    [SerializeField] private float pitchGreen = 1.0f;
+    [SerializeField] private float pitchYellow = 1.1f;
+    [SerializeField] private float pitchBlue = 1.2f;
+    [SerializeField] private float pitchPurple = 1.3f;
 
     private GameObject RedLight;
     private GameObject GreenLight;
