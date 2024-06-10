@@ -29,6 +29,20 @@ public class KitchenScript : MonoBehaviour
         isNewActive = true;
     }
 
+    public void FixAnomaly(string anomalyName)
+    {
+        if (anomalyName == nameof(AnomalyCameraMalfunction))
+        {
+            CameraMalfunction.SetActive(false);
+            isCameraMalfunctionActive = false;
+        }
+        if (anomalyName == nameof(AnomalyNew))
+        {
+            New.SetActive(false);
+            isNewActive = false;
+        }
+    }
+
     public bool IsAnomalyActive(string anomalyName)
     {
         if (anomalyName == nameof(AnomalyCameraMalfunction))

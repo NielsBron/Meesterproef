@@ -102,6 +102,12 @@ public class AnomalyGenerator : MonoBehaviour
         }
     }
 
+    public void FixAnomaly(MonoBehaviour roomScript, string anomalyName)
+    {
+        roomScript.GetType().GetMethod("FixAnomaly").Invoke(roomScript, new object[] { anomalyName });
+        DecrementAnomalyCounter();
+    }
+
     public void DecrementAnomalyCounter()
     {
         anomalyCounter--;

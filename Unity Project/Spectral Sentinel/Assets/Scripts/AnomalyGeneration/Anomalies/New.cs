@@ -6,6 +6,8 @@ public class New : Interactable
 {
     [SerializeField] private GameObject FixText;
     [SerializeField] private AnomalyGenerator AnomalyGeneratorScript;
+    [SerializeField] private MonoBehaviour RoomScript; // Reference to the room script
+    [SerializeField] private string AnomalyName = "AnomalyNew"; // Name of the anomaly method
 
     public override void OnInteract()
     {
@@ -25,7 +27,7 @@ public class New : Interactable
     private void FixAnomaly()
     {
         Debug.Log("Anomaly Fixed");
-        AnomalyGeneratorScript.DecrementAnomalyCounter();
+        AnomalyGeneratorScript.FixAnomaly(RoomScript, AnomalyName);
         gameObject.SetActive(false);
     }
 }

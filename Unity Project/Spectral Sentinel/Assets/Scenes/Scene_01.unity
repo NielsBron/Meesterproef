@@ -2028,6 +2028,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixText: {fileID: 890281244}
   AnomalyGeneratorScript: {fileID: 888691783}
+  RoomScript: {fileID: 139991200}
+  AnomalyName: AnomalyCameraMalfunction
 --- !u!65 &186987978
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5747,6 +5749,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixText: {fileID: 890281244}
   AnomalyGeneratorScript: {fileID: 888691783}
+  RoomScript: {fileID: 903701474}
+  AnomalyName: AnomalyCameraMalfunction
 --- !u!65 &694323006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10933,6 +10937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixText: {fileID: 890281244}
   AnomalyGeneratorScript: {fileID: 888691783}
+  RoomScript: {fileID: 1525753262}
+  AnomalyName: AnomalyCameraMalfunction
 --- !u!65 &1153065465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11905,6 +11911,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixText: {fileID: 890281244}
   AnomalyGeneratorScript: {fileID: 888691783}
+  RoomScript: {fileID: 1525753262}
+  AnomalyName: AnomalyNew
 --- !u!65 &1273808517
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12364,6 +12372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixText: {fileID: 890281244}
   AnomalyGeneratorScript: {fileID: 888691783}
+  RoomScript: {fileID: 903701474}
+  AnomalyName: AnomalyNew
 --- !u!65 &1286887153
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12460,6 +12470,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixText: {fileID: 890281244}
   AnomalyGeneratorScript: {fileID: 888691783}
+  RoomScript: {fileID: 1132751460}
+  AnomalyName: AnomalyNew
 --- !u!65 &1288553844
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17123,6 +17135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixText: {fileID: 890281244}
   AnomalyGeneratorScript: {fileID: 888691783}
+  RoomScript: {fileID: 139991200}
+  AnomalyName: AnomalyNew
 --- !u!65 &1945080858
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17534,6 +17548,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixText: {fileID: 890281244}
   AnomalyGeneratorScript: {fileID: 888691783}
+  RoomScript: {fileID: 1132751460}
+  AnomalyName: AnomalyCameraMalfunction
 --- !u!65 &1997756038
 BoxCollider:
   m_ObjectHideFlags: 0
