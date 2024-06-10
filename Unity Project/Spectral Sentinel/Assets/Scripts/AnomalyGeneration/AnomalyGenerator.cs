@@ -53,14 +53,8 @@ public class AnomalyGenerator : MonoBehaviour
 
     public void GenerateAnomaly()
     {
-        if (isAnomalyGenerationStopped)
+        if (isAnomalyGenerationStopped || anomalyCounter >= maxAnomalies)
             return;
-
-        if (anomalyCounter >= maxAnomalies)
-        {
-            CancelInvoke("GenerateAnomaly");
-            return;
-        }
 
         bool anomalyGenerated = false;
 
@@ -78,16 +72,18 @@ public class AnomalyGenerator : MonoBehaviour
                 continue;
             }
 
-            foreach (var method in anomalyMethods)
+            // Randomly select an anomaly method
+            int anomalyIndex = Random.Range(0, anomalyMethods.Length);
+            MethodInfo selectedAnomalyMethod = anomalyMethods[anomalyIndex];
+
+            // Check if the selected anomaly method is not already active
+            if (!(bool)selectedRoomScript.GetType().GetMethod("IsAnomalyActive").Invoke(selectedRoomScript, new object[] { selectedAnomalyMethod.Name }))
             {
-                if (!(bool)selectedRoomScript.GetType().GetMethod("IsAnomalyActive").Invoke(selectedRoomScript, new object[] { method.Name }))
-                {
-                    method.Invoke(selectedRoomScript, null);
-                    anomalyCounter++;
-                    anomalyCounterText.text = "" + anomalyCounter;
-                    anomalyGenerated = true;
-                    break;
-                }
+                // Invoke the selected anomaly method
+                selectedAnomalyMethod.Invoke(selectedRoomScript, null);
+                anomalyCounter++;
+                anomalyCounterText.text = "" + anomalyCounter;
+                anomalyGenerated = true;
             }
 
             if (!anomalyGenerated)

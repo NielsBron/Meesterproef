@@ -7,9 +7,11 @@ public class GarageScript : MonoBehaviour
     [SerializeField] private string RoomName = "Garage";
     [SerializeField] private GameObject CameraMalfunction;
     [SerializeField] private GameObject New;
+    [SerializeField] private GameObject CarLights;
 
     private bool isCameraMalfunctionActive = false;
     private bool isNewActive = false;
+    private bool isCarLightsActive = false;
 
     public void AnomalyCameraMalfunction()
     {
@@ -29,6 +31,15 @@ public class GarageScript : MonoBehaviour
         isNewActive = true;
     }
 
+    public void AnomalyCarLights()
+    {
+        if (isCarLightsActive) return;
+
+        Debug.Log(RoomName + " Car Lights");
+        CarLights.SetActive(true);
+        isCarLightsActive = true;
+    }
+
     public void FixAnomaly(string anomalyName)
     {
         if (anomalyName == nameof(AnomalyCameraMalfunction))
@@ -41,6 +52,11 @@ public class GarageScript : MonoBehaviour
             New.SetActive(false);
             isNewActive = false;
         }
+        if (anomalyName == nameof(AnomalyCarLights))
+        {
+            CarLights.SetActive(false);
+            isCarLightsActive = false;
+        }
     }
 
     public bool IsAnomalyActive(string anomalyName)
@@ -49,6 +65,8 @@ public class GarageScript : MonoBehaviour
             return isCameraMalfunctionActive;
         if (anomalyName == nameof(AnomalyNew))
             return isNewActive;
+        if (anomalyName == nameof(AnomalyCarLights))
+            return isCarLightsActive;
 
         return false;
     }
