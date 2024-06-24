@@ -59,7 +59,7 @@ public class DoorOption : MonoBehaviour
         Debug.Log("Clicked door 1");
         if (asyncLoader != null)
         {
-            asyncLoader.LoadLevel("Scene_01");
+            asyncLoader.LoadLevel("Credits");
         }
         else
         {

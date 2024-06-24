@@ -7,7 +7,8 @@ public class AnomalyGenerator : MonoBehaviour
     [SerializeField] private MonoBehaviour[] roomScripts;
     [SerializeField] private float realWorldGameDuration = 6f * 60f;
     [SerializeField] private float inGameAnomalyInterval = 20f;
-    [SerializeField] private Text timeText;
+    [SerializeField] private Text alarmTime;
+    [SerializeField] private Text computerTime;
     [SerializeField] private Text anomalyCounterText;
     [SerializeField] private GameOver gameOverScript;
     [SerializeField] private int maxAnomalies = 0;
@@ -36,7 +37,8 @@ public class AnomalyGenerator : MonoBehaviour
         float inGameElapsedTime = elapsedTime * (6f * 60f) / realWorldGameDuration;
         int hours = Mathf.FloorToInt((inGameElapsedTime % 3600f) / 60f);
         int minutes = Mathf.FloorToInt(inGameElapsedTime % 60f);
-        timeText.text = $"{hours:D2}:{minutes:D2}";
+        alarmTime.text = $"{hours:D2}:00";
+        computerTime.text = $"{hours:D2}:00";
 
         if (elapsedTime >= realWorldGameDuration)
         {
