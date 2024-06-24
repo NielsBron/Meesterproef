@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Computer : Interactable
 {
-    [SerializeField] public GameObject UseText;
-    [SerializeField] public GameObject playerController;
-    [SerializeField] public Camera pcCamera;
+    [SerializeField] private GameObject UseText;
+    [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private GameObject playerController;
+    [SerializeField] private GameObject PcToPlayerScript;
+    [SerializeField] private GameObject PlayerToPcScript;
+    [SerializeField] private Camera pcCamera;
 
     private Camera mainCamera;
     private bool isUsingComputer = false;
@@ -16,17 +19,10 @@ public class Computer : Interactable
         mainCamera = Camera.main;
     }
 
-    private void Update()
-    {
-        if (isUsingComputer && Input.GetKeyDown(KeyCode.Escape))
-        {
-            ExitComputer();
-        }
-    }
-
     public override void OnInteract()
     {
-        UseText.SetActive(true);
+        PcToPlayerScript.SetActive(true);
+        UseText.SetActive(false);
         EnterComputer();
     }
 
@@ -42,29 +38,38 @@ public class Computer : Interactable
 
     private void EnterComputer()
     {
+        PauseMenu.SetActive(false);
         playerController.SetActive(false);
-
         pcCamera.gameObject.SetActive(true);
-
         mainCamera.gameObject.SetActive(false);
+        StartCoroutine(PlayerToPc());
+    }
 
+    IEnumerator PlayerToPc()
+    {
+        yield return new WaitForSeconds(1.0f);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
         isUsingComputer = true;
     }
 
-    private void ExitComputer()
+    public void ExitComputer()
     {
-        playerController.SetActive(true);
-
-        pcCamera.gameObject.SetActive(false);
-
-        mainCamera.gameObject.SetActive(true);
-
+        StartCoroutine(PcToPlayer());
+    }
+    
+    IEnumerator PcToPlayer()
+    {
+        PlayerToPcScript.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        yield return new WaitForSeconds(1.0f);
         isUsingComputer = false;
+        PauseMenu.SetActive(true);
+        PlayerToPcScript.SetActive(false);
+        playerController.SetActive(true);
+        pcCamera.gameObject.SetActive(false);
+        mainCamera.gameObject.SetActive(true);
     }
+        
 }

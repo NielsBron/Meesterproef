@@ -5,7 +5,7 @@ using System.Collections;
 public class AudioOcclusion : MonoBehaviour
 {
     public Transform listener;
-    public LayerMask occlusionLayer;
+    public LayerMask occlusionLayers;
     public float maxDistance = 10f;
     public float occlusionAmount = 0.5f;
     public float transitionSpeed = 5f;
@@ -51,8 +51,8 @@ public class AudioOcclusion : MonoBehaviour
         // Check if the listener is within max distance
         if (distanceToListener <= maxDistance)
         {
-            // Perform a raycast to check for occlusion
-            if (Physics.Raycast(transform.position, directionToListener, distanceToListener, occlusionLayer))
+            // Perform a raycast to check for occlusion with multiple layers
+            if (Physics.Raycast(transform.position, directionToListener, distanceToListener, occlusionLayers))
             {
                 // If the ray hits something, reduce the volume and cutoff frequency, draw a red ray
                 targetVolume = originalVolume * (1f - occlusionAmount);

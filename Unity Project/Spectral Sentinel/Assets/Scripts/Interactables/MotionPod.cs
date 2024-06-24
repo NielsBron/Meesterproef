@@ -41,6 +41,7 @@ public class MotionPod : MonoBehaviour
     
     private bool isOn = false;
     private GameObject playerObj = null;
+    private GameObject ghostObj = null;
 
     private AudioSource audioSource;
 
@@ -53,6 +54,7 @@ public class MotionPod : MonoBehaviour
         PurpleLight = PurpleObject.transform.GetChild(0).gameObject;
 
         playerObj = GameObject.FindGameObjectWithTag("Player");
+        ghostObj = GameObject.FindGameObjectWithTag("Ghost");
         audioSource = GetComponent<AudioSource>();
 
         TurnOn();
@@ -60,24 +62,25 @@ public class MotionPod : MonoBehaviour
 
     void Update()
     {
-        if (playerObj != null && isOn == true)
+        if ((playerObj != null || ghostObj != null) && isOn == true)
         {
-            float distance = Vector3.Distance(transform.position, playerObj.transform.position);
-            // Debug.Log("Distance to player: " + distance);
+            float distanceToPlayer = playerObj != null ? Vector3.Distance(transform.position, playerObj.transform.position) : float.MaxValue;
+            float distanceToGhost = ghostObj != null ? Vector3.Distance(transform.position, ghostObj.transform.position) : float.MaxValue;
+            float closestDistance = Mathf.Min(distanceToPlayer, distanceToGhost);
 
-            if (distance <= PurpleDistance)
+            if (closestDistance <= PurpleDistance)
             {
                 Purple();
             }
-            else if (distance <= BlueDistance)
+            else if (closestDistance <= BlueDistance)
             {
                 Blue();
             }
-            else if (distance <= YellowDistance)
+            else if (closestDistance <= YellowDistance)
             {
                 Yellow();
             }
-            else if (distance <= GreenDistance)
+            else if (closestDistance <= GreenDistance)
             {
                 Green();
             }

@@ -10,7 +10,7 @@ public class AnomalyGenerator : MonoBehaviour
     [SerializeField] private Text timeText;
     [SerializeField] private Text anomalyCounterText;
     [SerializeField] private GameOver gameOverScript;
-    [SerializeField] private int maxAnomalies = 1;
+    [SerializeField] private int maxAnomalies = 0;
     [SerializeField] private int anomalyCounter = 0;
 
     private float realWorldAnomalyInterval;

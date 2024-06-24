@@ -8,6 +8,8 @@ public class Door : Interactable
     private bool canBeInteractedWith = true;
     private Animator anim;
     [SerializeField] private GameObject UseText;
+    [SerializeField] private AudioSource DoorOpenAudio = default;
+    [SerializeField] private AudioSource DoorCloseAudio = default;
     
 
     private void Start()
@@ -48,6 +50,16 @@ public class Door : Interactable
     private void Animator_UnlockInteraction()
     {
         canBeInteractedWith = true;
+    }
+
+    private void OpenDoorSound()
+    {
+        DoorOpenAudio.Play();
+    }
+
+    private void CloseDoorSound()
+    {
+        DoorCloseAudio.Play();
     }
 }
 

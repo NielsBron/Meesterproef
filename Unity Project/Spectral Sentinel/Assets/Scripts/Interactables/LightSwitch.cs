@@ -5,7 +5,7 @@ using UnityEngine;
 public class LightSwitch : Interactable
 {
     [SerializeField] private GameObject UseText;
-    [SerializeField] private List<Light> controlledLights;
+    [SerializeField] private List<GameObject> controlledLightObjects; // GameObject references instead of Light components
     [SerializeField] private Animation switchAnimation;
     [SerializeField] private List<Renderer> lightRenderers;
     [SerializeField] private Material lightOnMaterial;
@@ -13,8 +13,14 @@ public class LightSwitch : Interactable
     [SerializeField] private AudioClip turnOnSound;
     [SerializeField] private AudioClip turnOffSound;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private FanController fanController;
 
-    private bool isLightOn = true;
+    public bool isLightOn = true;
+
+    public bool IsLightOn()
+    {
+        return isLightOn;
+    }
 
     void Start()
     {
@@ -29,16 +35,14 @@ public class LightSwitch : Interactable
     public override void OnFocus()
     {
         UseText.SetActive(true);
-        //print("Looking at object: " + gameObject.name);
     }
 
     public override void OnLoseFocus()
     {
         UseText.SetActive(false);
-        //print("Stopped Looking at object: " + gameObject.name);
     }
 
-    private void ToggleLight()
+    public void ToggleLight()
     {
         isLightOn = !isLightOn;
 
@@ -48,6 +52,10 @@ public class LightSwitch : Interactable
             SetLightsState(true);
             SetRenderersMaterial(lightOnMaterial);
             audioSource.PlayOneShot(turnOnSound);
+            if (fanController != null)
+            {
+                fanController.SetFanState(true);
+            }
         }
         else
         {
@@ -55,22 +63,28 @@ public class LightSwitch : Interactable
             SetLightsState(false);
             SetRenderersMaterial(lightOffMaterial);
             audioSource.PlayOneShot(turnOffSound);
+            if (fanController != null)
+            {
+                fanController.SetFanState(false);
+            }
         }
-
-        //print("Interacted with object: " + gameObject.name);
     }
 
     private void SetInitialLightState()
     {
         SetLightsState(isLightOn);
         SetRenderersMaterial(isLightOn ? lightOnMaterial : lightOffMaterial);
+        if (fanController != null)
+        {
+            fanController.SetFanState(isLightOn);
+        }
     }
 
     private void SetLightsState(bool state)
     {
-        foreach (Light light in controlledLights)
+        foreach (GameObject lightObject in controlledLightObjects)
         {
-            light.enabled = state;
+            lightObject.SetActive(state); // Activate or deactivate the entire GameObject
         }
     }
 
